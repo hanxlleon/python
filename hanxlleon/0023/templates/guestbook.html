@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+{#    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='guestbook.css') }}" type="text/css">
+    <title>留言簿</title>
+</head>
+<body>
+<h2>留言簿</h2>
+{% for flash in get_flashed_messages() %}
+    <div class="flash">
+        <b>{{ flash }}</b>
+    </div>
+{% endfor %}
+<div class="form">
+    <p>请尽情留言吧：</p>
+    <form method="POST" action="/">
+        {{ form.hidden_tag() }}
+        <table border="0">
+            <tr>
+                <td>
+                    <b>姓名：</b>
+                </td>
+                <td>
+                    {{ form.username.label }} {{ form.username() }} </br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>内容：</b>
+                </td>
+                <td>
+                    {{ form.content.label }} {{ form.content() }} </br>
+                </td>
+            </tr>
+        </table>
+        {{ form.submit() }}
+    </form>
+</div>
+<div class="comments">
+    <h3>留言历史信息：</h3>
+    {% for comment in comments %}
+        <div>
+            <b>{{ comment.username }} 留言于({{ '%s' % comment.datestamp}})</b>
+{#            <b>{{ comment.username }} 留言于({{ moment(comment.datestamp).format('L') }})</b>#}
+            <p class="content">{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+
+</div>
+<div class="footer"></div>
+{#<script type="text/javascript">#}
+{#    {{ moment.include_moment() }}#}
+{#    {{ moment.lang('en') }}#}
+{#</script>#}
+</body>
+</html>

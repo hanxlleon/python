@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2> == 修改 ==</h2>
+<form action="/{{ todo.id }}/edit" method="POST">
+{{ form.hidden_tag() }}
+{{ form.csrf }}
+    <table>
+        <tr>
+            <td>{{ form.title() }}</td>
+            <td>{{ form.submit() }}</td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
